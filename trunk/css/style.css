@@ -1,0 +1,149 @@
+html {
+   padding: 0;
+   margin: 0;
+}
+
+body {
+   background: #000;
+}
+
+div#header {
+   width: 605px;
+   margin: 0 auto;
+   clear: both;
+   overflow: auto;
+}
+
+h1, h2 {
+   padding: 0;
+   margin: 0;
+   float: left;
+}
+
+h1 {
+   width: 40%;
+   height: 70px;
+   text-indent: -5000px;
+   background: url(../images/logo.png) no-repeat;
+}
+
+h2 {
+   width: 59%;
+   height: 14px;
+   font: 400 14px verdana, tahoma, arial, sans-serif;
+   padding: 30px 0 0 0;
+   text-align: right;
+}
+
+span#download {
+   display: block;
+   clear: both;
+   width: 350px;
+   text-align: left;
+   color: #fff;
+   font: 400 18px verdana, tahoma, arial, sans-serif;
+   margin: 20px auto;
+}
+
+span.up-date {
+   display: block;
+   width: 100%;
+   font: 400 11px verdana, tahoma, arial, sans-serif;
+   height: 10px;
+   margin-top: 10px;
+}
+
+span.version {
+   color: #b5d77e;
+}
+
+em.minor-note {
+   display: block;
+   font: 10px verdana, tahoma, arial, sans-serif;
+   font-style: italic; 
+   line-height: 12px;
+}
+
+span#download a {
+   color: #fff;
+   font-weight: 700;
+   text-decoration: none;
+   border-bottom: 1px solid #fff;
+}
+
+p, div {
+   display: block;
+   width: 605px;
+   margin: 0 auto 40px auto;
+   padding-top: 38px;
+   font: 14px verdana, tahoma, arial, sans-serif;
+   text-align: justify;
+   color: #fff;
+   overflow: auto;
+   clear: both;
+}
+
+p#purpose { background: url(../images/purpose.png) left top no-repeat; }
+div#requirements { background: url(../images/requirements.png) left top no-repeat; }
+div#documentation { background: url(../images/documentation.png) left top no-repeat; }
+div#usage { background: url(../images/usage.png) left top no-repeat; }
+div#demo { background: url(../images/demonstration.png) left top no-repeat; }
+
+span.text {
+   display: block;
+   clear: both;
+}
+
+span.spaced {
+   padding-top: 20px;
+}
+
+span.text a, p a {
+   color: #fff;
+}
+
+div#label-container {
+   display: block;
+   clear: both;
+   width: 605px;
+   margin: 0 0 20px 0;
+   padding: 0;
+}
+
+div#label-container span {
+   display: block;
+   float: left;
+   font: 14px verdana, tahoma, arial, sans-serif;
+   text-align: left;
+   color: #81b3bc;
+   overflow: auto;
+}
+
+code {
+   display: block;
+   margin: 20px auto;
+   padding: 10px 20px;
+   width: 500px;
+   background: #151515;
+   color: #fff;
+   border-bottom: 3px solid #2c2c2c;
+   white-space: pre;
+}
+
+div#canvasObj {
+   display: block;
+   margin: -20px auto 0;
+   text-align: center;
+}
+
+div#footer {
+   color: #5e5d5d;
+   font-size: 10px;
+   text-align: center;
+   padding-top: 5px;
+   margin-bottom: 10px;
+}
+
+div#footer a {
+   color: #6e6d6d;
+}

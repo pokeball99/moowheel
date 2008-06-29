@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+      <title>MooWheel: a javascript connections visualization library</title>
+      
+      <link rel="stylesheet" media="screen, print" href="css/style.css" />
+      <link rel="stylesheet" media="screen, print" href="css/code.css" />
+        
+      <script src="js/mootools-1.2-core-nc.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/mootools-1.2-more.js.js" type="text/javascript" charset="utf-8"></script>      
+      <script src="js/excanvas.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/canvastext.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/moowheel.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/highlight.js" type="text/javascript" charset="utf-8"></script>
+      <script type="text/javascript">
+        initHighlightingOnLoad('html', 'javascript');
+      </script>
+   </head>
+
+   <body>
+      <div id="header">
+         <h1>MooWheel</h1>
+         <h2>a javascript connections visualization library</h2>
+      </div>
+      
+      <span id="download">
+         <span class="up-date">06.29.2008</span>
+         version <span class="version">0.2</span> now available! <a href="download/moowheel_v02.zip">get it.</a>
+         <em class="minor-note"><a href="download/updates.txt">What's new?</a> Looking for <a href="download/moowheel_v01.zip">version 0.1</a> instead?</em>
+      </span>
+      
+      <p id="purpose">
+         The purpose of this script is to provide a unique and elegant way to visualize data using Javascript and the &lt;canvas&gt; object. This type of visualization can be used to display connections between many different objects, be them people, places, things, or otherwise. The script is licensed under an <a href="license.txt">MIT-style license</a>.
+      </p>
+      
+      <div id="requirements">
+         <span class="text">This script requires three libraries to support it. <strong>CanvasText</strong> (for text support with canvas elements), <strong>ExCanvas</strong> (for IE canvas support), and <strong>MooTools 1.2</strong>; all three are included in the package.</span>
+      </div>
+      
+      <div id="documentation">
+         <span class="text"><strong>MooWheel</strong> only requires 2 arguments to create a basic wheel graph. The data array and the canvas element:</span>
+         <pre><code class="javascript">new MooWheel(dataArray, canvasElement);</code></pre>
+         <span class="text spaced">The canvas element can be passed as either an element reference or an id string. The data array must be a standard javascript array following the format outlined in the <strong>usage</strong> section.</span>
+         <span class="text spaced">The MooWheel class can also generate a graph based on a JSON request. There is a special sub-class used to make this call, named <strong>MooWheel.Remote</strong>, which uses the same parameters as the parent MooWheel class. Simply supply the AJAX call information in the MooWheel options and it will get the JSON data (which should be in the same format as the data array) and generate a graph:</span>
+         <pre><code class="javascript">new MooWheel.Remote(false, canvasElement, {
+      url: 'http://your.json/url.php'
+   }
+});</code></pre>
+         <span class="text"><strong>Note:</strong> In this context, the first argument (the data parameter), doesn't matter. Below is an example where the parameter is very important.</span>
+         
+         <span class="text spaced"><strong>MooWheel.Remote</strong> can also be used to preload images for each item:</span>
+         <pre><code class="javascript">var wheelData =  [{
+                    "connections": ["otheritem"],
+                    "text": "Item Name",
+                    "imageUrl": "http://some.image/url.jpg",
+                    "id": "itemid"
+                  }, ...];
+             
+   new MooWheel.Remote(wheelData, canvasElement);</code></pre>
+   
+         <span class="text">Each item that has an "imageUrl" will have that image preloaded, and then added to the wheel when it is drawn</span>
+
+         <span class="text spaced">In terms of options, there are a number of options available that allow you to change the way the graph is generated and displayed:</span>
+         <pre><code class="javascript">url: '',
+
+center: {
+   x: 100,
+   y: 100
+},
+
+lines: {
+   color: 'random',
+   lineWidth: 2
+},
+
+radialMultiplier: 3.47,
+
+hover: true,
+
+hoverLines: {
+   color: 'rgba(255,255,255,255)',
+   lineWidth: 3
+},
+
+onItemClick: function() {}</code></pre>
+         <span class="text"><strong>url:</strong> As previously explained, this option will allow you to generate a wheel graph based on an AJAX call. This option is only available when used with <strong>MooWheel.Remote</strong>.</span>
+         <span class="text spaced"><strong>center:</strong> This option object lets you specify where you want the graph centered on the canvas element. By default, it will be centered at <code>{x: (width / 2), y: (height / 2)}</code> but this can be changed to any value you like.</span>
+         <span class="text spaced"><strong>lines:</strong> Here, you can change the way the lines are displayed. The color of the lines can either be all the same (set color to an <i>'rgba(r, g, b, alpha)'</i> value) or random (set color to <i>'random'</i>). Line width is self-explainatory.</span>
+         <span class="text spaced"><strong>radialMultiplier:</strong> How spaced apart the graph will be. If not included, a default of 3.47 will be used. Generally, the more items you have on the graph, the higher this number should be.</span>
+         <span class="text spaced"><strong>hover:</strong> Enable/disable the ability to hover over individual points and see the item's connections.</span>
+         <span class="text spaced"><strong>hoverLines:</strong> The same purpose as the <b>lines</b> option, but for when a user hovers over an item. <i>Note: 'random' will not work here.</i></span>
+         <span class="text spaced"><strong>onItemClick:</strong> Allow each item on the wheel to be a "link"; when the use clicks an item, you can execute a function. It's parameters are <code class="javascript">function(item, event)</code> where <i>item</i> is the item object as defined in the data array, and <i>event</i> is the canvas click event.</span>
+      </div>
+      
+      <div id="usage">
+         <span class="text">Using <strong>MooWheel</strong> is very simple and extremely easy. First, include the necessary files in the header of your page:</span>
+         <pre><code>&lt;script type="text/javascript" src="js/mootools-1.2-core-nc.js"&gt;
+&lt;/script&gt;
+&lt;script type="text/javascript" src="js/mootools-1.2-more.js"&gt;
+&lt;/script&gt;
+&lt;script type="text/javascript" src="js/excanvas.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/canvastext.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/moowheel.js"&gt;&lt;/script&gt;
+</code></pre>
+
+         <span class="text">Next, you create an array of items for the connections:</span>
+         <pre><code class="javascript">var data = [{
+             id: 'joeb',
+             text: 'Joe B',
+             connections: ['ryank', 'charliec']
+            },
+            
+            {
+             id: 'ryank',
+             text: 'Ryan K',
+             connections: ['charliec']
+            },
+
+            {
+             id: 'charliec',
+             text: 'Charlie C',
+             connections: ['ryank', 'joeb']
+            },
+            
+            {
+             id: 'robertz',
+             text: 'Robert Z',
+             connections: ['joeb', 'charliec']
+            }];</code></pre>
+            
+         <span class="text">Then you add a container for the canvas tag to the body of your document:</span>
+         <pre><code>&lt;div id="canvas-container"&gt;&lt;/div&gt;</code></pre>
+         
+         <span class="text">And finally, go back to your script and initialize your <strong>MooWheel</strong> object:</span>
+         <pre><code class="javascript">var wheel = new MooWheel(data, $('canvas-container'));</code></pre>
+      </div>
+      
+      <div id="demo">
+         <script type="text/javascript">
+            if(typeof window.onload == 'function')
+               var old_onload = window.onload;
+            else
+               var old_onload = function() {};
+
+            window.onload = function() {
+               var data = [{
+                id: 'joeb',
+                text: 'Joe B',
+                connections: ['ryank', 'charliec']
+               },
+               
+               {
+                id: 'ryank',
+                text: 'Ryan K',
+                connections: ['charliec']
+               },
+   
+               {
+                id: 'charliec',
+                text: 'Charlie C',
+                connections: ['ryank', 'joeb']
+               },
+               
+               {
+                id: 'robertz',
+                text: 'Robert Z',
+                connections: ['joeb', 'charliec']
+               },
+               
+               {
+                id: 'nickk',
+                text: 'Nick K',
+                connections: []
+               }];
+               
+               var wheel = new MooWheel(data, $('canvasObj'), {radialMultiplier: 10});
+               
+               old_onload();
+            };
+         </script>
+         <div id="canvasObj"></div>
+         <span class="text spaced">View a <a href="demo/large.html">larger, AJAX-powered demo</a> or...</span>
+         <span class="text spaced"><a href="demo/heat.html">Hot and cold</a> wheels which rank the connections based on their value/weight or...</span>
+         <span class="text spaced">an <a href="demo/twitter.html">image and text</a> wheel, using Twitter data as an example</span>
+      </div>
+      
+      <div id="footer">Copyright &copy; 2008 <a href="http://www.unwieldy.net">unwieldy studios</a></div>
+   </body>
+</html>

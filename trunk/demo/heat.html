@@ -1,0 +1,64 @@
+<html>
+   <head>
+      <title>MooWheel "Heat"/"Cold" Large Demo (with AJAX)</title>
+      
+      <style type="text/css" media="screen">
+         html, body {
+            padding: 0;
+            margin: 0;
+         }
+         
+         body {
+            text-align: left;
+            background-color: #000;
+            padding: 10px 0 0 10px;
+         }
+         
+         canvas#canvas {
+            display: block;
+            border: 1px solid #fff;
+            background-color: #000;
+            margin: 10px 0;
+         }
+         
+         a {
+            color: #fff;
+            font: 700 14px tahoma, verdana, arial, sans-serif;
+         }
+      </style>
+      
+      <script type="text/javascript" src="../js/mootools-1.2-core-nc.js"></script>
+      <script type="text/javascript" src="../js/mootools-1.2-more.js.js"></script>      
+      <script type="text/javascript" src="../js/excanvas.js"></script>
+      <script type="text/javascript" src="../js/canvastext.js"></script>
+      <script type="text/javascript" src="../js/moowheel.js"></script>
+      <script type="text/javascript">
+         window.onload = function() {
+            var wc = new MooWheel.Remote(false, $('canvas'), {type: 'heat', url: './generate.php?multi=1', radialMultiplier: 10, lines: {color: '#fff'}});
+            
+            $('switch').addEvent('click', function() {
+               var which = $('switch').getElement('span');
+               
+               $('canvas').empty();
+               
+               switch(which.innerHTML) {
+                  case 'Cold':
+                     wc = new MooWheel.Remote(false, $('canvas'), {type: 'cold', url: './generate.php?multi=1', radialMultiplier: 10, lines: {color: '#fff'}}); 
+                     which.set('html', 'Heat').setStyle('color', '#e64545');
+                  break;
+                  
+                  case 'Heat':
+                     wc = wc = new MooWheel.Remote(false, $('canvas'), {type: 'heat', url: './generate.php?multi=1', radialMultiplier: 10, lines: {color: '#fff'}});
+                     which.set('html', 'Cold').setStyle('color', '#308eee');;
+                  break;
+               }
+            });
+         };
+      </script>
+   </head>
+   
+   <body>
+      <a href="..">&laquo; Back</a> &nbsp; <a href="#" id="switch">Switch to <span style="color:#308eee;">Cold</span> Wheel</a>
+      <div id="canvas"></div>
+   </body>
+</html>

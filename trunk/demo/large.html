@@ -1,0 +1,46 @@
+<html>
+   <head>
+      <title>MooWheel Large Demo (with AJAX)</title>
+      
+      <style type="text/css" media="screen">
+         html, body {
+            padding: 0;
+            margin: 0;
+         }
+         
+         body {
+            text-align: left;
+            background-color: #000;
+            padding: 10px 0 0 10px;
+         }
+         
+         div#canvas {
+            display: block;
+            border: 1px solid #fff;
+            background-color: #000;
+            margin: 10px 0;
+         }
+         
+         a {
+            color: #fff;
+            font: 700 14px tahoma, verdana, arial, sans-serif;
+         }
+      </style>
+      
+      <script type="text/javascript" src="../js/mootools-1.2-core-nc.js"></script>
+      <script type="text/javascript" src="../js/mootools-1.2-more.js.js"></script>      
+      <script type="text/javascript" src="../js/excanvas.js"></script>
+      <script type="text/javascript" src="../js/canvastext.js"></script>
+      <script type="text/javascript" src="../js/moowheel.js"></script>
+      <script type="text/javascript">
+         window.onload = function() {
+            new MooWheel.Remote(false, $('canvas'), {url: './generate.php', radialMultiplier: 10});
+         };
+      </script>
+   </head>
+   
+   <body>
+      <a href="..">&laquo; Back</a>
+      <div id="canvas"></div>
+   </body>
+</html>

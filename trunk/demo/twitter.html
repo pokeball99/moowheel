@@ -1,0 +1,439 @@
+<html>
+   <head>
+      <title>MooWheel Example</title>
+      
+      <style type="text/css" media="screen">
+         html, body {
+            padding: 0;
+            margin: 0;
+         }
+         
+         body {
+            text-align: left;
+            background-color: #000;
+            padding: 10px 0 0 10px;
+         }
+         
+         div#canvas {
+            display: block;
+            border: 1px solid #fff;
+            background-color: #000;
+            font: 12px Verdana, Tahoma, Arial, sans-serif;
+            color: #fff;
+         }
+      </style>
+      
+      <script type="text/javascript" src="../js/excanvas.js"></script>
+      <script type="text/javascript" src="../js/canvastext.js"></script>
+      <script type="text/javascript" src="../js/mootools-1.2-core-nc.js"></script>
+      <script type="text/javascript" src="../js/mootools-1.2-more.js"></script>
+      <script type="text/javascript" src="../js/moowheel.js"></script>
+      <script type="text/javascript">
+         window.onload = function() {
+             var wheelData =  [{
+                 "connections": [],
+                 "text": "Simon Willison",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/14714402/dublin-waterfall-square_normal.jpg",
+                 "id": "simonw"
+             },
+             {
+                 "connections": ["pablotossi", "Vanesak", "santisiri", "marianor"],
+                 "text": "Diego",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/14890892/240534385_8010ae0281_m_normal.jpg",
+                 "id": "dfgonzalez"
+             },
+             {
+                 "connections": ["damienkatz"],
+                 "text": "runixo",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/51766003/sopa_normal.jpg",
+                 "id": "runixo"
+             },
+             {
+                 "connections": ["agustinpallotti"],
+                 "text": "geelbe",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/50600002/logogeelbe_normal.jpg",
+                 "id": "geelbe"
+             },
+             {
+                 "connections": ["fzunino", "msinia", "sulzberger", "jabuchae", "eemi", "thepose"],
+                 "text": "santiagososa",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/50641922/27-04-07_2305_normal.jpg",
+                 "id": "santiagososa"
+             },
+             {
+                 "connections": ["chanezon"],
+                 "text": "abadfederico",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/54590314/tw_normal.gif",
+                 "id": "abadfederico"
+             },
+             {
+                 "connections": ["crazybob", "cleverdevil", "jeresig", "benbangert", "timbray"],
+                 "text": "Kevin Dangoor",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/39792872/IMG_0012_normal.JPG",
+                 "id": "dangoor"
+             },
+             {
+                 "connections": [],
+                 "text": "  microformats",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/18913702/microformats-logo_normal.png",
+                 "id": "microformats"
+             },
+             {
+                 "connections": ["ianbicking", "jasonh", "benbangert", "dangoor"],
+                 "text": "Jonathan LaCour",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/55016061/me_normal.png",
+                 "id": "cleverdevil"
+             },
+             {
+                 "connections": ["timoreilly", "crazybob", "timbray"],
+                 "text": "Steve Jenson",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53807182/jr_ranger_steve_normal.jpg",
+                 "id": "stevej"
+             },
+             {
+                 "connections": ["Scobleizer", "simonw", "brady", "davemc500hats", "jzawodn", "jasonh", "leahculver"],
+                 "text": "James Tauber",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/34044932/jtauber_normal.jpg",
+                 "id": "jtauber"
+             },
+             {
+                 "connections": ["pablotossi", "agustinpallotti", "dfgonzalez", "palermovalley", "geelbe", "Vanesak", "marianor", "voltes", "santisiri"],
+                 "text": "Gaston Bercun",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/54057879/GastonBercun2_normal.jpg",
+                 "id": "gastonbercun"
+             },
+             {
+                 "connections": ["agustindl", "eemi", "sulzberger", "jabuchae", "thepose"],
+                 "text": "juantrouilh",
+                 "imageUrl": "http://static.twitter.com/images/default_profile_normal.png",
+                 "id": "juantrouilh"
+             },
+             {
+                 "connections": ["jzawodn", "Scobleizer"],
+                 "text": "Akshay Java",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/25433702/self_normal.jpg",
+                 "id": "akshayjava"
+             },
+             {
+                 "connections": ["cleverdevil", "dangoor"],
+                 "text": "Ben Bangert",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/34472692/my_pic_normal.jpg",
+                 "id": "benbangert"
+             },
+             {
+                 "connections": ["juam", "earlkman", "santisiri", "thepose"],
+                 "text": "fzunino",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/37445802/DSC00620_normal.JPG",
+                 "id": "fzunino"
+             },
+             {
+                 "connections": ["agustindl", "msinia", "sulzberger", "santiagososa", "jabuchae", "eemi", "juantrouilh", "thepose"],
+                 "text": "georginabecciu",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/52381973/georgina_normal.jpg",
+                 "id": "georginabecciu"
+             },
+             {
+                 "connections": ["microformats", "simonw", "jeresig"],
+                 "text": "Lim Chee Aun",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/16857822/me-square_normal.png",
+                 "id": "cheeaun"
+             },
+             {
+                 "connections": ["bradfitz"],
+                 "text": "Leah Culver",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/34355002/leahculver_normal.jpg",
+                 "id": "leahculver"
+             },
+             {
+                 "connections": ["jzawodn", "simonw"],
+                 "text": "John Resig",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/39570812/jeresig-wordpress_normal.jpg",
+                 "id": "jeresig"
+             },
+             {
+                 "connections": ["palermovalley", "chanezon"],
+                 "text": "alejolp",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/51440003/debian-logo_normal.jpg",
+                 "id": "alejolp"
+             },
+             {
+                 "connections": ["fzunino", "thepose", "eemi", "earlkman", "santisiri"],
+                 "text": "juam",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/52832976/juan_normal.png",
+                 "id": "juam"
+             },
+             {
+                 "connections": ["Scobleizer", "dfgonzalez", "pablotossi", "Vanesak", "juantrouilh", "timoreilly", "santisiri"],
+                 "text": "Matias Sulzberger",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/52229958/100_1256_normal.JPG",
+                 "id": "sulzberger"
+             },
+             {
+                 "connections": ["davemc500hats"],
+                 "text": "Jason Hoffman",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/14395602/1_normal.jpg",
+                 "id": "jasonh"
+             },
+             {
+                 "connections": ["donovanpreston", "simonw", "jtauber", "holdenweb", "otakup0pe"],
+                 "text": "Bob Ippolito",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/22521802/me_normal.jpg",
+                 "id": "etrepum"
+             },
+             {
+                 "connections": ["crazybob"],
+                 "text": "Whitney McNamara",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53102242/whit-smaller_normal.jpg",
+                 "id": "whitneymcn"
+             },
+             {
+                 "connections": ["donovanpreston", "holdenweb", "oubiwann"],
+                 "text": "glyf",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/38156172/mugshot_normal.png",
+                 "id": "glyf"
+             },
+             {
+                 "connections": ["simonw", "oubiwann", "etrepum", "jtauber", "glyf", "ianbicking", "timbray"],
+                 "text": "Steve Holden",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/30585102/Steve48x48_normal.jpg",
+                 "id": "holdenweb"
+             },
+             {
+                 "connections": [],
+                 "text": "Powerset",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/51534738/images_normal.jpeg",
+                 "id": "Powerset"
+             },
+             {
+                 "connections": ["santisiri", "pablotossi", "dfgonzalez", "gastonbercun", "marianor"],
+                 "text": "Vanesa Kolodziej",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53078920/IMG_0374_2_normal.jpg",
+                 "id": "Vanesak"
+             },
+             {
+                 "connections": ["jzawodn", "timbray"],
+                 "text": "Corey Goldberg",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53275736/corey_rvw_normal.jpg",
+                 "id": "cgoldberg"
+             },
+             {
+                 "connections": ["Scobleizer", "dfgonzalez"],
+                 "text": "Damian Voltes",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/46031042/damo_1_normal.gif",
+                 "id": "voltes"
+             },
+             {
+                 "connections": ["fzunino", "pablotossi", "juam", "palermovalley", "Vanesak", "marianor", "voltes", "santisiri"],
+                 "text": "Emiliano Kargieman",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/54424683/ek_normal.jpg",
+                 "id": "earlkman"
+             },
+             {
+                 "connections": ["crazybob", "jzawodn", "simonw", "davemc500hats"],
+                 "text": "chanezon",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/38136442/pat_plage_sfo_normal.png",
+                 "id": "chanezon"
+             },
+             {
+                 "connections": ["simonw", "oubiwann", "etrepum", "glyf", "otakup0pe", "ianbicking"],
+                 "text": "Donovan Preston",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/46153132/Photo_86_normal.jpg",
+                 "id": "donovanpreston"
+             },
+             {
+                 "connections": ["davemc500hats"],
+                 "text": "Robert Scoble",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/50819312/newscoblecamsmallcrop_normal.jpg",
+                 "id": "Scobleizer"
+             },
+             {
+                 "connections": ["pablotossi", "palermovalley", "geelbe", "Vanesak", "gastonbercun", "marianor", "voltes", "santisiri"],
+                 "text": "Agustin Pallotti",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/50539172/_DSC3029_small_normal.jpg",
+                 "id": "agustinpallotti"
+             },
+             {
+                 "connections": ["jzawodn", "bradfitz", "damienkatz"],
+                 "text": "Jake Luciani",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/47192092/3rd_normal.png",
+                 "id": "tjake"
+             },
+             {
+                 "connections": [],
+                 "text": "Mark Dixon",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53677286/mark03_normal.jpg",
+                 "id": "mgd"
+             },
+             {
+                 "connections": [],
+                 "text": "Authentic Jobs",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/39141762/aj_normal.gif",
+                 "id": "authenticjobs"
+             },
+             {
+                 "connections": ["georginabecciu", "agustindl", "sulzberger", "santiagososa", "jabuchae", "eemi", "juantrouilh", "thepose", "timoreilly"],
+                 "text": "Martin Siniawski",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/52053747/SSA40648_normal.JPG",
+                 "id": "msinia"
+             },
+             {
+                 "connections": [],
+                 "text": "Avinash Vora",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/51727587/9892_normal.jpg",
+                 "id": "avinashv"
+             },
+             {
+                 "connections": ["DonMacAskill", "davemc500hats", "timbray"],
+                 "text": "Jeremy Zawodny",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/17071732/Zawodny-md_normal.jpg",
+                 "id": "jzawodn"
+             },
+             {
+                 "connections": ["agustinpallotti", "dfgonzalez", "sulzberger", "earlkman", "eemi", "gastonbercun", "marianor", "thepose", "voltes", "santisiri", "Vanesak"],
+                 "text": "pablotossi",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/48720122/7bis_normal.jpg",
+                 "id": "pablotossi"
+             },
+             {
+                 "connections": ["georginabecciu", "dfgonzalez", "marianor", "agustindl", "juam", "sulzberger", "santisiri", "palermovalley", "jabuchae", "juantrouilh", "msinia", "earlkman"],
+                 "text": "Emiliano Casta\u00f1o",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/52662501/Imagen_105_normal.jpg",
+                 "id": "eemi"
+             },
+             {
+                 "connections": ["georginabecciu", "Scobleizer", "msinia", "sulzberger", "santiagososa", "santisiri", "jabuchae", "eemi", "juantrouilh", "thepose", "earlkman"],
+                 "text": "agustindl",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/48646832/handshake_normal.gif",
+                 "id": "agustindl"
+             },
+             {
+                 "connections": ["Scobleizer", "leahculver", "bradfitz", "simonw", "stevej", "timoreilly", "timbray"],
+                 "text": "Bob Lee",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/52409219/headshot_normal.jpg",
+                 "id": "crazybob"
+             },
+             {
+                 "connections": ["donovanpreston", "etrepum"],
+                 "text": "Jonathan Freedman",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/51670924/Photo_14_normal.jpg",
+                 "id": "otakup0pe"
+             },
+             {
+                 "connections": ["pablotossi", "dfgonzalez", "santisiri", "palermovalley", "Vanesak", "gastonbercun", "voltes", "earlkman"],
+                 "text": "Mariano Ruani",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/54945627/Mariano_Cara_normal.JPG",
+                 "id": "marianor"
+             },
+             {
+                 "connections": ["bradfitz", "simonw", "davemc500hats", "brady", "timbray"],
+                 "text": "Tim O'Reilly",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/30147402/bearded_tim_s_normal.jpg",
+                 "id": "timoreilly"
+             },
+             {
+                 "connections": ["jeresig", "jzawodn", "davemc500hats", "Scobleizer"],
+                 "text": "brady forrest",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/14201722/IMG_9629_normal.jpg",
+                 "id": "brady"
+             },
+             {
+                 "connections": ["simonw"],
+                 "text": "damienkatz",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53397208/Photo_109_normal.jpg",
+                 "id": "damienkatz"
+             },
+             {
+                 "connections": ["donovanpreston", "leahculver", "etrepum", "glyf", "holdenweb", "ianbicking", "timbray"],
+                 "text": "oubiwann",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/35201102/DuncanSimpsons_cropped_sml_normal.png",
+                 "id": "oubiwann"
+             },
+             {
+                 "connections": [],
+                 "text": "ashcrow",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/55216338/avatar_normal.jpg",
+                 "id": "ashcrow"
+             },
+             {
+                 "connections": [],
+                 "text": "Harald Kirschner",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53298424/harald-k-400_normal.jpg",
+                 "id": "digitarald"
+             },
+             {
+                 "connections": ["timoreilly", "leahculver", "brady"],
+                 "text": "Brad Fitzpatrick",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/19420192/2_normal.jpg",
+                 "id": "bradfitz"
+             },
+             {
+                 "connections": ["Scobleizer", "jasonh", "brady"],
+                 "text": "Dave McClure",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/54210959/500hat_normal.gif",
+                 "id": "davemc500hats"
+             },
+             {
+                 "connections": ["pablotossi", "dfgonzalez", "sulzberger", "abadfederico", "earlkman", "jabuchae", "Vanesak", "thepose", "santisiri"],
+                 "text": "palermovalley",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/50214452/valley_normal.jpg",
+                 "id": "palermovalley"
+             },
+             {
+                 "connections": ["fzunino", "dfgonzalez", "juam", "palermovalley", "Vanesak", "marianor", "earlkman"],
+                 "text": "Santiago Siri",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/55494259/Imagen_9_normal.png",
+                 "id": "santisiri"
+             },
+             {
+                 "connections": ["fzunino", "georginabecciu", "agustindl", "msinia", "sulzberger", "santiagososa", "palermovalley", "Vanesak", "juantrouilh", "thepose", "eemi", "voltes", "santisiri"],
+                 "text": "Jose Abuchaem",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/35330772/HPIM1393_normal.JPG",
+                 "id": "jabuchae"
+             },
+             {
+                 "connections": ["Scobleizer", "leahculver", "brady", "bradfitz", "davemc500hats", "jzawodn"],
+                 "text": "Don MacAskill",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/25911742/131481302_IMG_0241_normal.jpg",
+                 "id": "DonMacAskill"
+             },
+             {
+                 "connections": [],
+                 "text": "bernna",
+                 "imageUrl": "http://static.twitter.com/images/default_profile_normal.png",
+                 "id": "bernna"
+             },
+             {
+                 "connections": ["fzunino", "georginabecciu", "pablotossi", "agustindl", "juam", "sulzberger", "santiagososa", "santisiri", "palermovalley", "jabuchae", "eemi", "juantrouilh", "msinia", "voltes", "earlkman", "chanezon"],
+                 "text": "thepose",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/53739027/nuevapic2_normal.jpg",
+                 "id": "thepose"
+             },
+             {
+                 "connections": ["donovanpreston", "jtauber", "holdenweb"],
+                 "text": "Ian Bicking",
+                 "imageUrl": "http://static.twitter.com/images/default_profile_normal.png",
+                 "id": "ianbicking"
+             },
+             {
+                 "connections": ["jzawodn", "stevej", "jeresig"],
+                 "text": "Tim Bray",
+                 "imageUrl": "http://s3.amazonaws.com/twitter_production/profile_images/28485132/Tim_normal.png",
+                 "id": "timbray"
+             }];
+
+             new MooWheel.Remote(wheelData, $('canvas'), {
+                 onItemClick: function(item, e) {
+                    var url = "http://twitter.com/"+item.id;
+                    window.open(url);
+                 },
+                 type: 'heat'
+             });
+         };
+      </script>
+   </head>
+   
+   <body>
+      <div id="canvas"><strong>Loading, please wait...</div>
+   </body>
+</html>
+
